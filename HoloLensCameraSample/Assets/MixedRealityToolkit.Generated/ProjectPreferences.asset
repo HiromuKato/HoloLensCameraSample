@@ -16,7 +16,9 @@ MonoBehaviour:
     keys:
     - _MixedRealityToolkit_Editor_IgnoreSettingsPrompts
     - _MixedRealityToolkit_Editor_LockProfiles
-    values: 0001
+    - MixedRealityToolkit_Editor_RunOptimalConfig
+    - MixedRealityToolkit_Editor_NullDataProviders
+    values: 00010100
   intPreferences:
     keys:
     - _MixedRealityToolkit_Editor_ConfiguratorState
