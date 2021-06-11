@@ -37,12 +37,12 @@ MonoBehaviour:
     BuildIndex: 3
     Tag: Content01
     Asset: {fileID: 102900000, guid: 43f9f399c0889f341ac8c3518fd4386f, type: 3}
-  - Name: Content02
-    Path: Assets/App/Scenes/Content02.unity
+  - Name: PhotoCaptureSample
+    Path: Assets/App/Scenes/PhotoCaptureSample.unity
     Included: 1
-    BuildIndex: 2
+    BuildIndex: 4
     Tag: Content02
-    Asset: {fileID: 102900000, guid: 1c0994bfa41c5b143a636a15bddb2443, type: 3}
+    Asset: {fileID: 102900000, guid: 0887b24d5a05e7e4fa79404c7742c4c5, type: 3}
   permittedLightingSceneComponentTypes:
   - reference: UnityEngine.Transform, UnityEngine.CoreModule
   - reference: UnityEngine.GameObject, UnityEngine.CoreModule
