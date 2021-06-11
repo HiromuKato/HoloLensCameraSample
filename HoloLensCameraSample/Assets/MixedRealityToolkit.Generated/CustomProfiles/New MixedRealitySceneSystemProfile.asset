@@ -31,12 +31,12 @@ MonoBehaviour:
     Tag: Untagged
     Asset: {fileID: 102900000, guid: 7e54e36c44f826c438c95da79f8de638, type: 3}
   contentScenes:
-  - Name: Content01
-    Path: Assets/App/Scenes/Content01.unity
+  - Name: WebCamTextureSample
+    Path: Assets/App/Scenes/WebCamTextureSample.unity
     Included: 1
-    BuildIndex: 1
+    BuildIndex: 3
     Tag: Content01
-    Asset: {fileID: 102900000, guid: c8cf210722653314681ee2b60ac32115, type: 3}
+    Asset: {fileID: 102900000, guid: 43f9f399c0889f341ac8c3518fd4386f, type: 3}
   - Name: Content02
     Path: Assets/App/Scenes/Content02.unity
     Included: 1

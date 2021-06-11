@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/App/Scenes/Content02.unity
     guid: 1c0994bfa41c5b143a636a15bddb2443
+  - enabled: 1
+    path: Assets/App/Scenes/WebCamTextureSample.unity
+    guid: 43f9f399c0889f341ac8c3518fd4386f
   m_configObjects: {}
