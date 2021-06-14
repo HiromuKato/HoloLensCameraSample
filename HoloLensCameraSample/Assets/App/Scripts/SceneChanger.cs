@@ -15,6 +15,7 @@ namespace HoloLensCameraSample
         // コンテンツのタグ名
         private readonly string content01 = "Content01";
         private readonly string content02 = "Content02";
+        private readonly string content03 = "Content03";
 
         void Start()
         {
@@ -31,11 +32,18 @@ namespace HoloLensCameraSample
             await sceneSystem.LoadContentByTag(content02, LoadSceneMode.Single);
         }
 
+        public async void LoadContent03()
+        {
+            await sceneSystem.LoadContentByTag(content03, LoadSceneMode.Single);
+        }
+
+        /*
         public async void LoadContentsAdditive()
         {
             await sceneSystem.LoadContentByTag(content01, LoadSceneMode.Single);
             await sceneSystem.LoadContentByTag(content02, LoadSceneMode.Additive);
         }
+        */
 
         public async void NextContents()
         {

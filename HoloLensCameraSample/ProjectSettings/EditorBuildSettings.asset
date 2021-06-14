@@ -9,15 +9,12 @@ EditorBuildSettings:
     path: Assets/App/Scenes/RootScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
-    path: Assets/App/Scenes/Content01.unity
-    guid: c8cf210722653314681ee2b60ac32115
-  - enabled: 1
-    path: Assets/App/Scenes/Content02.unity
-    guid: 1c0994bfa41c5b143a636a15bddb2443
-  - enabled: 1
     path: Assets/App/Scenes/WebCamTextureSample.unity
     guid: 43f9f399c0889f341ac8c3518fd4386f
   - enabled: 1
     path: Assets/App/Scenes/PhotoCaptureSample.unity
     guid: 0887b24d5a05e7e4fa79404c7742c4c5
+  - enabled: 1
+    path: Assets/App/Scenes/MediaCaptureVideoSample.unity
+    guid: dae7b13dbf41e5041b2e4bff7db45a6f
   m_configObjects: {}

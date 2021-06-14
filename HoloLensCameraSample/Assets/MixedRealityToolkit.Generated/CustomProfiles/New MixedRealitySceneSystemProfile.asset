@@ -34,15 +34,21 @@ MonoBehaviour:
   - Name: WebCamTextureSample
     Path: Assets/App/Scenes/WebCamTextureSample.unity
     Included: 1
-    BuildIndex: 3
+    BuildIndex: 1
     Tag: Content01
     Asset: {fileID: 102900000, guid: 43f9f399c0889f341ac8c3518fd4386f, type: 3}
   - Name: PhotoCaptureSample
     Path: Assets/App/Scenes/PhotoCaptureSample.unity
     Included: 1
-    BuildIndex: 4
+    BuildIndex: 2
     Tag: Content02
     Asset: {fileID: 102900000, guid: 0887b24d5a05e7e4fa79404c7742c4c5, type: 3}
+  - Name: MediaCaptureVideoSample
+    Path: Assets/App/Scenes/MediaCaptureVideoSample.unity
+    Included: 1
+    BuildIndex: 3
+    Tag: Content03
+    Asset: {fileID: 102900000, guid: dae7b13dbf41e5041b2e4bff7db45a6f, type: 3}
   permittedLightingSceneComponentTypes:
   - reference: UnityEngine.Transform, UnityEngine.CoreModule
   - reference: UnityEngine.GameObject, UnityEngine.CoreModule
@@ -53,6 +59,7 @@ MonoBehaviour:
   contentTags:
   - Content01
   - Content02
+  - Content03
   cachedLightingSettings:
   - SceneName: DefaultLightingScene
     RenderSettings:
