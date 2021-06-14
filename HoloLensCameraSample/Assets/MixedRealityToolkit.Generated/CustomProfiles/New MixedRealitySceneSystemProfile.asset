@@ -43,11 +43,17 @@ MonoBehaviour:
     BuildIndex: 2
     Tag: Content02
     Asset: {fileID: 102900000, guid: 0887b24d5a05e7e4fa79404c7742c4c5, type: 3}
-  - Name: MediaCaptureVideoSample
-    Path: Assets/App/Scenes/MediaCaptureVideoSample.unity
+  - Name: MediaCapturePhotoSample
+    Path: Assets/App/Scenes/MediaCapturePhotoSample.unity
     Included: 1
     BuildIndex: 3
     Tag: Content03
+    Asset: {fileID: 102900000, guid: 08a6e1f7e18f30c4ca5ea563ce005a22, type: 3}
+  - Name: MediaCaptureVideoSample
+    Path: Assets/App/Scenes/MediaCaptureVideoSample.unity
+    Included: 1
+    BuildIndex: 4
+    Tag: Content04
     Asset: {fileID: 102900000, guid: dae7b13dbf41e5041b2e4bff7db45a6f, type: 3}
   permittedLightingSceneComponentTypes:
   - reference: UnityEngine.Transform, UnityEngine.CoreModule
@@ -60,6 +66,7 @@ MonoBehaviour:
   - Content01
   - Content02
   - Content03
+  - Content04
   cachedLightingSettings:
   - SceneName: DefaultLightingScene
     RenderSettings:

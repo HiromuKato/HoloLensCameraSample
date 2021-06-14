@@ -13,9 +13,10 @@ namespace HoloLensCameraSample
         IMixedRealitySceneSystem sceneSystem;
 
         // コンテンツのタグ名
-        private readonly string content01 = "Content01";
-        private readonly string content02 = "Content02";
-        private readonly string content03 = "Content03";
+        private readonly string content01 = "Content01"; // WebCamTextureSample
+        private readonly string content02 = "Content02"; // PhotoCaptureSample
+        private readonly string content03 = "Content03"; // MediaCapturePhotoSample
+        private readonly string content04 = "Content04"; // MediaCaptureVideoSample
 
         void Start()
         {
@@ -35,6 +36,11 @@ namespace HoloLensCameraSample
         public async void LoadContent03()
         {
             await sceneSystem.LoadContentByTag(content03, LoadSceneMode.Single);
+        }
+
+        public async void LoadContent04()
+        {
+            await sceneSystem.LoadContentByTag(content04, LoadSceneMode.Single);
         }
 
         /*

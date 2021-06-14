@@ -301,7 +301,6 @@ GameObject:
   - component: {fileID: 963194226}
   - component: {fileID: 963194231}
   - component: {fileID: 963194230}
-  - component: {fileID: 963194229}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -374,29 +373,6 @@ Transform:
   m_Father: {fileID: 309522090}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &963194229
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 963194225}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf98dd1206224111a38765365e98e207, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lockCursorWhenFocusLocked: 1
-  setCursorInvisibleWhenFocusLocked: 0
-  maxGazeCollisionDistance: 10
-  raycastLayerMasks:
-  - serializedVersion: 2
-    m_Bits: 4294967291
-  stabilizer:
-    storedStabilitySamples: 60
-  gazeTransform: {fileID: 0}
-  minHeadVelocityThreshold: 0.5
-  maxHeadVelocityThreshold: 2
 --- !u!114 &963194230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -589,7 +565,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2094075399}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.153, y: -0.0174, z: 0}
+  m_LocalPosition: {x: 0.1585, y: -0.0192, z: 0}
   m_LocalScale: {x: 0.0021035676, y: 0.0021035676, z: 0.0021035676}
   m_Children: []
   m_Father: {fileID: 6497819334681913236}
@@ -1489,7 +1465,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 765132143115004459}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.031999998, y: 0, z: 1}
+  m_LocalPosition: {x: -0.048, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 765132143485698385}
@@ -2492,7 +2468,7 @@ MonoBehaviour:
   iconSprite: {fileID: 21300000, guid: 20f25674b9512834f88938d45ed495d7, type: 3}
   iconQuadRenderer: {fileID: 8927709776678372600}
   iconQuadTextureNameID: _MainTex
-  iconQuadTexture: {fileID: 2800000, guid: 2e264b2035e178e4dac9e40cfcf38662, type: 3}
+  iconQuadTexture: {fileID: 2800000, guid: 114589bc5b891c3488cbb8607b6b9171, type: 3}
   defaultButtonQuadMaterial: {fileID: 2100000, guid: fa419ab56051229449e3b813df8f295f,
     type: 2}
   iconSet: {fileID: 11400000, guid: 8b386ef895f7c924f8c4b03d1d3ed683, type: 2}
@@ -3081,7 +3057,7 @@ Transform:
   m_GameObject: {fileID: 5745757647348674930}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.05015, y: 0.0126, z: 0}
-  m_LocalScale: {x: 0.128, y: 0.064, z: 0.010599999}
+  m_LocalScale: {x: 0.1504, y: 0.064, z: 0.010599999}
   m_Children: []
   m_Father: {fileID: 2973119455065221846}
   m_RootOrder: 0
@@ -3329,7 +3305,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Menu Four
+  m_text: 'MediaCapture
+
+    (Video)'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6a84f857bec7e7345843ae29404c57ce, type: 2}
   m_sharedMaterial: {fileID: 21202819797275496, guid: 6a84f857bec7e7345843ae29404c57ce,
@@ -3352,7 +3330,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -3364,9 +3342,9 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
-  m_textAlignment: 514
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
   m_lineSpacing: 0
@@ -3404,7 +3382,7 @@ MonoBehaviour:
   _SortingOrder: 0
 --- !u!222 &1724012943708153497
 CanvasRenderer:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -3420,7 +3398,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1724012943708153499}
   - component: {fileID: 1724012943708153575}
-  - component: {fileID: 1724012943708153574}
   - component: {fileID: 1724012943708153497}
   - component: {fileID: 1724012943708153496}
   m_Layer: 0
@@ -3449,14 +3426,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -0.0109}
   m_SizeDelta: {x: 0.032, y: 0.01}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!33 &1724012943708153574
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1724012943708153498}
-  m_Mesh: {fileID: 0}
 --- !u!23 &1724012943708153575
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3518,7 +3487,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!82 &1724012944295130985
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4191,7 +4160,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2110343545314186968}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.0000000018626451, y: 0, z: 1}
+  m_LocalPosition: {x: -0.016, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2110343544606899618}
@@ -5969,6 +5938,11 @@ MonoBehaviour:
     Radius: 0
     Transform: {fileID: 8927709776711708339}
     Colliders: []
+  - Name: ButtonFour
+    Offset: {x: 0, y: 0}
+    Radius: 0
+    Transform: {fileID: 1724012942701818249}
+    Colliders: []
   ignoreInactiveTransforms: 1
   sortType: 0
   surfaceType: 1
@@ -5982,7 +5956,7 @@ MonoBehaviour:
   radialRange: 180
   distance: 1
   rows: 1
-  columns: 3
+  columns: 4
   cellWidth: 0.032
   cellHeight: 0.032
   assetVersion: 1
@@ -7784,19 +7758,8 @@ MonoBehaviour:
   OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: ToggleRecording
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_MethodName: SaveRecordedInput
+      - m_Target: {fileID: 1413118161}
+        m_MethodName: LoadContent04
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7967,7 +7930,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8195971258051290567}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.1324, y: 0.0316, z: -0.0082}
+  m_LocalPosition: {x: 0.1412, y: 0.0316, z: -0.0082}
   m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_Children:
   - {fileID: 8195971257747754685}
@@ -9685,7 +9648,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8927709777264830546}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.032000005, y: 0, z: 1}
+  m_LocalPosition: {x: 0.016, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8927709777699423016}
@@ -9931,7 +9894,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'MediaCapture
 
-    (Video)'
+    (Photo)'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6a84f857bec7e7345843ae29404c57ce, type: 2}
   m_sharedMaterial: {fileID: 21202819797275496, guid: 6a84f857bec7e7345843ae29404c57ce,
@@ -10225,7 +10188,7 @@ MonoBehaviour:
   iconSprite: {fileID: 21300000, guid: 20f25674b9512834f88938d45ed495d7, type: 3}
   iconQuadRenderer: {fileID: 1724012942736120770}
   iconQuadTextureNameID: _MainTex
-  iconQuadTexture: {fileID: 2800000, guid: 0771cd1b5e4131e45afe250cd1713737, type: 3}
+  iconQuadTexture: {fileID: 2800000, guid: 2e264b2035e178e4dac9e40cfcf38662, type: 3}
   defaultButtonQuadMaterial: {fileID: 2100000, guid: fa419ab56051229449e3b813df8f295f,
     type: 2}
   iconSet: {fileID: 11400000, guid: 8b386ef895f7c924f8c4b03d1d3ed683, type: 2}

@@ -178,7 +178,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: MediaCapture(Video) Sample
+  m_text: MediaCapture(Photo) Sample
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6a84f857bec7e7345843ae29404c57ce, type: 2}
   m_sharedMaterial: {fileID: 21202819797275496, guid: 6a84f857bec7e7345843ae29404c57ce,
@@ -414,7 +414,7 @@ RectTransform:
   m_GameObject: {fileID: 604784629}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0.01}
-  m_LocalScale: {x: 0.00012382999, y: 0.00012382999, z: 0.00012382999}
+  m_LocalScale: {x: 0.000087539134, y: 0.000087539134, z: 0.000087539134}
   m_Children:
   - {fileID: 1399011525}
   m_Father: {fileID: 873635200603879609}
@@ -423,7 +423,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0.018, y: 0.0012}
-  m_SizeDelta: {x: 896, y: 504}
+  m_SizeDelta: {x: 1280, y: 720}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1009030567
 GameObject:
@@ -436,7 +436,7 @@ GameObject:
   - component: {fileID: 1009030569}
   - component: {fileID: 1009030568}
   m_Layer: 0
-  m_Name: MediaCaptureVideoSample
+  m_Name: MediaCapturePhotoSample
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -451,9 +451,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1009030567}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e7e783d0b9e7634e84088835079176c, type: 3}
+  m_Script: {fileID: 11500000, guid: 7e739209c2c91cb4882b269ba74e09cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rawImage: {fileID: 1399011526}
 --- !u!4 &1009030569
 Transform:
   m_ObjectHideFlags: 0
@@ -503,7 +504,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 896, y: 504}
+  m_SizeDelta: {x: 1280, y: 720}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1399011526
 MonoBehaviour:
@@ -723,7 +724,7 @@ MonoBehaviour:
   OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1009030568}
+      - m_Target: {fileID: 0}
         m_MethodName: StopCapture
         m_Mode: 1
         m_Arguments:
@@ -3601,7 +3602,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Start
+  m_text: TakePhoto
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6a84f857bec7e7345843ae29404c57ce, type: 2}
   m_sharedMaterial: {fileID: 21202819797275496, guid: 6a84f857bec7e7345843ae29404c57ce,
@@ -5051,7 +5052,7 @@ MonoBehaviour:
   iconSprite: {fileID: 21300000, guid: 20f25674b9512834f88938d45ed495d7, type: 3}
   iconQuadRenderer: {fileID: 3303032339836591061}
   iconQuadTextureNameID: _MainTex
-  iconQuadTexture: {fileID: 2800000, guid: 2e264b2035e178e4dac9e40cfcf38662, type: 3}
+  iconQuadTexture: {fileID: 2800000, guid: 114589bc5b891c3488cbb8607b6b9171, type: 3}
   defaultButtonQuadMaterial: {fileID: 2100000, guid: fa419ab56051229449e3b813df8f295f,
     type: 2}
   iconSet: {fileID: 11400000, guid: 8b386ef895f7c924f8c4b03d1d3ed683, type: 2}
@@ -5136,7 +5137,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1009030568}
-        m_MethodName: StartCapture
+        m_MethodName: TakePhoto
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7550,7 +7551,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!82 &7125012018079045725
 AudioSource:
   m_ObjectHideFlags: 0

@@ -3,32 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UI;
 
 #if WINDOWS_UWP
+using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Devices.Enumeration;
-using Windows.Foundation.Collections;
 using Windows.Media.Capture;
-using Windows.Media.Effects;
 using Windows.Media.MediaProperties;
-using Windows.Storage;
 #endif
 
 namespace HoloLensCameraSample
 {
     /// <summary>
-    /// MediaCapture でビデオキャプチャを行うサンプル
+    /// MediaCapture でフォトキャプチャを行うサンプル
     /// Capapilities で VideosLibrary, Webcam, Microphone を有効にすること
     ///
     /// 参考：
     /// https://docs.microsoft.com/ja-jp/windows/uwp/audio-video-camera/basic-photo-video-and-audio-capture-with-mediacapture
     /// https://docs.microsoft.com/ja-jp/windows/mixed-reality/develop/platform-capabilities-and-apis/mixed-reality-capture-for-developers
     /// </summary>
-    public class MediaCaptureVideoSample : MonoBehaviour
+    public class MediaCapturePhotoSample : MonoBehaviour
     {
-        /// <summary>
-        /// 動画撮影完了時に呼ばれるイベントリスナー
-        /// </summary>
-        public Action<string> VideoCapturedListener = null;
+        [SerializeField]
+        private RawImage rawImage;
 
         private async void Start()
         {
@@ -58,37 +55,10 @@ namespace HoloLensCameraSample
 #endif
         }
 
-        public void StartCapture()
+        public void TakePhoto()
         {
 #if WINDOWS_UWP
-            StartCaptureUWP();
-#else
-            Debug.LogWarning("MediaCapture works only WINDOWS_UWP.");
-#endif
-        }
-
-        public void StopCapture()
-        {
-#if WINDOWS_UWP
-            StopCaptureUWP();
-#else
-            Debug.LogWarning("MediaCapture works only WINDOWS_UWP.");
-#endif
-        }
-
-        public void PauseCapture()
-        {
-#if WINDOWS_UWP
-            PauseCaptureUWP();
-#else
-            Debug.LogWarning("MediaCapture works only WINDOWS_UWP.");
-#endif
-        }
-
-        public void ResumeCapture()
-        {
-#if WINDOWS_UWP
-            ResumeCaptureUWP();
+            TakePhotoUWP();
 #else
             Debug.LogWarning("MediaCapture works only WINDOWS_UWP.");
 #endif
@@ -96,57 +66,11 @@ namespace HoloLensCameraSample
 
 
 #if WINDOWS_UWP
-        private bool isRecording = false;
         private MediaCapture mediaCapture;
-        private LowLagMediaRecording mediaRecording;
-        private string fileName;
-
-        /// <summary>
-        /// ビデオに効果を追加するためのクラス
-        /// </summary>
-        private class VideoEffectDefinition : IVideoEffectDefinition
-        {
-            public string ActivatableClassId => "Windows.Media.MixedRealityCapture.MixedRealityCaptureVideoEffect";
-
-            public IPropertySet Properties { get; private set; }
-
-            // コンストラクタ
-            public VideoEffectDefinition()
-            {
-                Properties = new PropertySet();
-                // ビデオキャプチャのホログラムを有効または無効にするフラグ
-                Properties.Add("HologramCompositionEnabled", true);
-                // ホログラムのキャプチャ中に画面の記録インジケーターを有効または無効にするフラグ
-                Properties.Add("RecordingIndicatorEnabled", true);
-                // ホログラムのグローバル不透明度係数を設定する
-                Properties.Add("GlobalOpacityCoefficient", 0.0f);
-                // キャプチャする holographic カメラビューの構成を示すために使用される列挙
-                Properties.Add("PreferredHologramPerspective", 1);
-            }
-        }
-
-        /// <summary>
-        /// オーディオをビデオに含めるためのクラス
-        /// </summary>
-        private class AudioEffectDefinition : IAudioEffectDefinition
-        {
-            public string ActivatableClassId => "Windows.Media.MixedRealityCapture.MixedRealityCaptureAudioEffect";
-
-            public IPropertySet Properties { get; private set; }
-
-            // コンストラクタ
-            public AudioEffectDefinition()
-            {
-                Properties = new PropertySet();
-                // 使用するオーディオソースを示すために使用する列挙
-                // 0 (Mic オーディオのみ)、1 (システムオーディオのみ)、2 (Mic およびシステムオーディオ)
-                Properties.Add("MixerMode", 2);
-                // システムオーディオボリューム(範囲は 0.0 - 5.0)
-                Properties.Add("LoopbackGain", 5.0);
-                // Mic ボリューム( 範囲は 0.0 - 5.0)
-                Properties.Add("MicrophoneGain", 5.0);
-            }
-        }
+        private LowLagPhotoCapture lowLagCapture;
+        byte[] bytes = null;
+        private bool isPhotoCapturing = false;
+        private Texture2D tex;
 
         /// <summary>
         /// MediaCapture オブジェクトの初期化を行う
@@ -167,7 +91,7 @@ namespace HoloLensCameraSample
             Debug.Log("Supported size & frame rate");
             foreach (var p in profiles)
             {
-                foreach (var d in p.SupportedRecordMediaDescription)
+                foreach (var d in p.SupportedPhotoMediaDescription)
                 {
                     Debug.Log($"{d.Width}x{d.Height} {d.FrameRate}");
                 }
@@ -175,9 +99,9 @@ namespace HoloLensCameraSample
 
             // 好みの値を指定する
             // 参考：https://docs.microsoft.com/ja-jp/windows/mixed-reality/develop/platform-capabilities-and-apis/locatable-camera#hololens-2
-            var width = 960;
-            var height = 540;
-            var framerate = 30;
+            var width = 1280;
+            var height = 720;
+            var framerate = 15;
             var match = (from profile in profiles
                          from desc in profile.SupportedRecordMediaDescription
                          where desc.Width == width && desc.Height == height && Math.Round(desc.FrameRate) == framerate
@@ -186,12 +110,11 @@ namespace HoloLensCameraSample
             if (match != null)
             {
                 mediaInitSettings.VideoProfile = match.profile;
-                mediaInitSettings.RecordMediaDescription = match.desc; // RecordMediaDescriptionである点に注意する
+                mediaInitSettings.PhotoMediaDescription = match.desc; // PhotoMediaDescriptionである点に注意する
                 Debug.Log($"Selected media : {match.desc.Width}x{match.desc.Height}");
             }
             else
             {
-                // Could not locate a WVGA 30FPS profile, use default video recording profile
                 Debug.LogWarning("Can't find profile.");
                 mediaInitSettings.VideoProfile = profiles[0];
             }
@@ -199,8 +122,6 @@ namespace HoloLensCameraSample
             mediaCapture = null;
             mediaCapture = new MediaCapture();
             await mediaCapture.InitializeAsync(mediaInitSettings);
-            await mediaCapture.AddVideoEffectAsync(new MediaCaptureVideoSample.VideoEffectDefinition(), MediaStreamType.VideoRecord);
-            await mediaCapture.AddAudioEffectAsync(new MediaCaptureVideoSample.AudioEffectDefinition());
 
             mediaCapture.CameraStreamStateChanged += MediaCapture_CameraStreamStateChanged;
             mediaCapture.CaptureDeviceExclusiveControlStatusChanged += MediaCapture_CaptureDeviceExclusiveControlStatusChanged;
@@ -209,6 +130,9 @@ namespace HoloLensCameraSample
             mediaCapture.PhotoConfirmationCaptured += MediaCapture_PhotoConfirmationCaptured;
             mediaCapture.RecordLimitationExceeded += MediaCapture_RecordLimitationExceeded;
             mediaCapture.ThermalStatusChanged += MediaCapture_ThermalStatusChanged;
+
+            // Prepare and capture photo
+            lowLagCapture = await mediaCapture.PrepareLowLagPhotoCaptureAsync(ImageEncodingProperties.CreateUncompressed(MediaPixelFormat.Bgra8));
         }
 
         /// <summary>
@@ -252,11 +176,8 @@ namespace HoloLensCameraSample
                 return;
             }
 
-            if (isRecording)
-            {
-                await mediaRecording.StopAsync();
-                await mediaRecording.FinishAsync();
-            }
+            // LowLagPhotoCapture セッションをシャットダウンし、関連するリソースを解放
+            await lowLagCapture.FinishAsync();
 
             mediaCapture.CameraStreamStateChanged -= MediaCapture_CameraStreamStateChanged;
             mediaCapture.CaptureDeviceExclusiveControlStatusChanged -= MediaCapture_CaptureDeviceExclusiveControlStatusChanged;
@@ -267,102 +188,60 @@ namespace HoloLensCameraSample
             mediaCapture.ThermalStatusChanged -= MediaCapture_ThermalStatusChanged;
 
             mediaCapture = null;
-            Debug.Log("Cleaned up.");
         }
 
         /// <summary>
-        /// ビデオキャプチャを開始する
+        /// カメラ画像の取得
         /// </summary>
-        private async Task StartCaptureUWP()
+        /// <returns></returns>
+        public async Task TakePhotoUWP()
         {
-            if (isRecording)
+            if (isPhotoCapturing)
             {
-                Debug.LogWarning("Already starting capture.");
+                Debug.LogWarning("キャプチャ中です");
                 return;
             }
 
-            Debug.Log("Start capture.");
+            // CaptureAsync を繰り返し呼び出して、複数の写真をキャプチャすることも可能
+            isPhotoCapturing = true;
+            var capturedPhoto = await lowLagCapture.CaptureAsync();
+            isPhotoCapturing = false;
 
-            isRecording = true;
+            var softwareBitmap = capturedPhoto.Frame.SoftwareBitmap;
+            int w = softwareBitmap.PixelWidth;
+            int h = softwareBitmap.PixelHeight;
+            Debug.Log($"{w} x {h}");
 
-            // ビデオの保存先を指定する（ビデオライブラリに保存する場合）
-            /*
-            StorageLibrary myVideos = await StorageLibrary.GetLibraryAsync(KnownLibraryId.Videos);
-            StorageFile file = await myVideos.SaveFolder.CreateFileAsync("video.mp4", CreationCollisionOption.GenerateUniqueName);
-            */
-
-            // ビデオの保存先を指定する（ドキュメント配下に保存する場合）
-            /*
-            StorageFolder documentsFolder = KnownFolders.DocumentsLibrary;
-            var videoFolder = await documentsFolder.GetFolderAsync("<FolderName>");
-            */
-
-            // ビデオの保存先を指定する（アプリ内に保存する場合）
-            StorageFolder videoFolder = ApplicationData.Current.LocalFolder;
-            // ファイル名生成
-            var now = DateTime.Now;
-            fileName = now.ToString($"{now:yyyyMMddHHmmss}") + "_video.mp4";
-            StorageFile file = await videoFolder.CreateFileAsync(fileName, CreationCollisionOption.GenerateUniqueName);
-
-            // ストレージファイルとビデオのエンコードを指定する
-            mediaRecording = await mediaCapture.PrepareLowLagRecordToStorageFileAsync(
-                MediaEncodingProfile.CreateMp4(VideoEncodingQuality.Auto), file);
-
-            try
+            if (bytes == null)
             {
-                await mediaRecording.StartAsync();
+                bytes = new byte[w * h * 4];
             }
-            catch (Exception ex)
+            // 上下反転したデータが格納される
+            softwareBitmap.CopyToBuffer(bytes.AsBuffer());
+
+            // 上下反転したデータをnewBytesに格納する、またBGRAをRGBAにする
+            int stride = 4;
+            var newBytes = new byte[w * h * stride];
+            for (int y = 0; y < h; y++)
             {
-                Debug.Log(ex.Message);
-                // キャプチャ失敗 nullを渡す
-                if (VideoCapturedListener != null)
+                for (int x = 0; x < w * stride; x += stride)
                 {
-                    VideoCapturedListener(null);
+                    newBytes[(h - 1 - y) * (w * stride) + x + 0] = bytes[y * (w * stride) + x + 2]; // R
+                    newBytes[(h - 1 - y) * (w * stride) + x + 1] = bytes[y * (w * stride) + x + 1]; // G
+                    newBytes[(h - 1 - y) * (w * stride) + x + 2] = bytes[y * (w * stride) + x + 0]; // B
+                    newBytes[(h - 1 - y) * (w * stride) + x + 3] = bytes[y * (w * stride) + x + 3]; // A
                 }
             }
-        }
 
-        /// <summary>
-        /// ビデオキャプチャを停止する
-        /// </summary>
-        private async Task StopCaptureUWP()
-        {
-            if (!isRecording)
+            // キャプチャした画像の表示 
+            if (tex == null)
             {
-                return;
+                tex = new Texture2D(w, h, TextureFormat.RGBA32, false);
             }
-            Debug.Log("Stop capture.");
-
-            await mediaRecording.StopAsync();
-
-            // ビデオキャプチャ終了を知らせるコールバック
-            if (VideoCapturedListener != null)
-            {
-                VideoCapturedListener(fileName);
-            }
-
-            isRecording = false;
-
-            await mediaRecording.FinishAsync();
+            tex.LoadRawTextureData(newBytes);
+            tex.Apply();
+            rawImage.texture = tex;
         }
-
-        /// <summary>
-        /// ビデオキャプチャの一時停止を行う
-        /// </summary>
-        private async Task PauseCaptureUWP()
-        {
-            await mediaRecording.PauseAsync(Windows.Media.Devices.MediaCapturePauseBehavior.ReleaseHardwareResources);
-        }
-
-        /// <summary>
-        /// ビデオキャプチャの一時停止を再開する
-        /// </summary>
-        private async Task ResumeCaptureUWP()
-        {
-            await mediaRecording.ResumeAsync();
-        }
-
 
         #region MediaCapture Event
         /// <summary>
@@ -410,7 +289,6 @@ namespace HoloLensCameraSample
         /// </summary>
         private async void MediaCapture_RecordLimitationExceeded(MediaCapture sender)
         {
-            await mediaRecording.StopAsync();
             Debug.LogWarning("Record limitation exceeded. Capture stopped.");
         }
 
@@ -421,7 +299,6 @@ namespace HoloLensCameraSample
         {
             if (mediaCapture.ThermalStatus == MediaCaptureThermalStatus.Overheated)
             {
-                await mediaRecording.StopAsync();
                 Debug.LogWarning("ThermalStatus is overheated. Capture stopped.");
             }
         }

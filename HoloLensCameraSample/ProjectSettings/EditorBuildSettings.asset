@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/App/Scenes/PhotoCaptureSample.unity
     guid: 0887b24d5a05e7e4fa79404c7742c4c5
   - enabled: 1
+    path: Assets/App/Scenes/MediaCapturePhotoSample.unity
+    guid: 08a6e1f7e18f30c4ca5ea563ce005a22
+  - enabled: 1
     path: Assets/App/Scenes/MediaCaptureVideoSample.unity
     guid: dae7b13dbf41e5041b2e4bff7db45a6f
   m_configObjects: {}

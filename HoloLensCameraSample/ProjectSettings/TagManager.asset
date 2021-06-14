@@ -7,6 +7,7 @@ TagManager:
   - Content01
   - Content02
   - Content03
+  - Content04
   layers:
   - Default
   - TransparentFX
